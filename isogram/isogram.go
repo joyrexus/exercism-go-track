@@ -1,9 +1,6 @@
 package isogram
 
-import (
-	"fmt"
-	"strings"
-)
+import "strings"
 
 // IsIsogram tests whether a string is an isogram.
 func IsIsogram(s string) bool {
