@@ -12,11 +12,11 @@ func Valid(v string) bool {
 		return false
 	}
 
-	checksum := 0   // sum of digits in value after doubling
-	double := false // every other digit from right
+	checksum := 0           // the sum after doubling
+	double := len(v)%2 == 0 // every other digit from right
 
 	// iterate over each digit in value to get checksum
-	for i := len(v) - 1; i >= 0; i-- {
+	for i := range v {
 		x, err := strconv.Atoi(string(v[i]))
 		if err != nil {
 			return false
@@ -27,7 +27,7 @@ func Valid(v string) bool {
 				x = x - 9
 			}
 		}
-		double = false == double // toggle value
+		double = !double // toggle value
 		checksum += x
 	}
 	return checksum%10 == 0
