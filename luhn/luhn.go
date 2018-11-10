@@ -16,8 +16,8 @@ func Valid(v string) bool {
 	double := len(v)%2 == 0 // every other digit from right
 
 	// iterate over each digit in value to get checksum
-	for i := range v {
-		x, err := strconv.Atoi(string(v[i]))
+	for _, r := range v {
+		x, err := strconv.Atoi(string(r))
 		if err != nil {
 			return false
 		}
