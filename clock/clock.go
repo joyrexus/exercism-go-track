@@ -5,10 +5,10 @@ import "fmt"
 // A Clock represents an instant in the day with minute precision.
 type Clock int
 
-// Minutes in an hour.
+// H is the number of minutes in an hour.
 const H int = 60
 
-// Minutes in a day.
+// D is the number of minutes in a day.
 const D int = 24 * H
 
 // New is a constructor for a clock.
