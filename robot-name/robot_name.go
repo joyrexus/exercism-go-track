@@ -19,7 +19,7 @@ func randLetter() int {
 	return rand.Intn(26) + 'A'
 }
 
-// makeNumbers makes a random two-character string of uppercase letters.
+// makeLetters makes a random two-character string of uppercase letters.
 func makeLetters() string {
 	return fmt.Sprintf("%c%c", randLetter(), randLetter())
 }
