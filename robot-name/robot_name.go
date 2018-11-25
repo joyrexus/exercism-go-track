@@ -14,27 +14,6 @@ type Robot struct {
 // seen is used to track previously seen robot names.
 var seen = map[string]bool{"": true}
 
-// randLetter returns a random rune in the range A-Z.
-func randLetter() int {
-	return rand.Intn(26) + 'A'
-}
-
-// makeLetters makes a random two-character string of uppercase letters.
-func makeLetters() string {
-	return fmt.Sprintf("%c%c", randLetter(), randLetter())
-}
-
-// makeNumbers makes a random three-digit string.
-func makeNumbers() string {
-	return fmt.Sprintf("%03d", rand.Intn(1000))
-}
-
-// generate generates a random robot name of the form AA###.
-func (r *Robot) generate() string {
-	rand.Seed(time.Now().UnixNano())
-	return fmt.Sprintf("%s%s", makeLetters(), makeNumbers())
-}
-
 // Name returns the robot's name.
 func (r *Robot) Name() string {
 	if r.name == "" {
@@ -45,8 +24,12 @@ func (r *Robot) Name() string {
 
 // Reset resets the robot's name.
 func (r *Robot) Reset() {
+	rand.Seed(time.Now().UnixNano())
 	for seen[r.name] {
-		r.name = r.generate()
+		r.name = fmt.Sprintf("%c%c%03d",
+			rand.Intn(26)+'A',
+			rand.Intn(26)+'A',
+			rand.Intn(1000))
 	}
 	seen[r.name] = true
 }
