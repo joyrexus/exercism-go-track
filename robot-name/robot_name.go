@@ -6,28 +6,30 @@ import (
 	"time"
 )
 
-// Robot represents a robot.
+// Robot represents a robot with a name.
 type Robot struct {
 	name string
 }
 
+// seen is used to track previously seen robot names.
 var seen = map[string]bool{"": true}
 
-var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-
-func randLetter() string {
-	return string(letters[rand.Intn(len(letters))])
+// randLetter returns a random rune in the range A-Z.
+func randLetter() int {
+	return rand.Intn(26) + 'A'
 }
 
+// makeNumbers makes a random two-character string of uppercase letters.
 func makeLetters() string {
-	return fmt.Sprintf("%s%s", randLetter(), randLetter())
+	return fmt.Sprintf("%c%c", randLetter(), randLetter())
 }
 
+// makeNumbers makes a random three-digit string.
 func makeNumbers() string {
 	return fmt.Sprintf("%03d", rand.Intn(1000))
 }
 
-// generate generates a random robot name.
+// generate generates a random robot name of the form AA###.
 func (r *Robot) generate() string {
 	rand.Seed(time.Now().UnixNano())
 	return fmt.Sprintf("%s%s", makeLetters(), makeNumbers())
