@@ -10,7 +10,7 @@ import (
 type matrix [][]int
 
 // New constructs a matrix based on the input string.
-func New(s string) (*matrix, error) {
+func New(s string) (matrix, error) {
 	var size int
 	lines := strings.Split(s, "\n")
 	m := make(matrix, len(lines))
@@ -31,26 +31,26 @@ func New(s string) (*matrix, error) {
 			m[i][j] = v
 		}
 	}
-	return &m, nil
+	return m, nil
 }
 
 // Rows returns a row representation of the matrix.
-func (m *matrix) Rows() [][]int {
-	d := make([][]int, len(*m))
-	for i := range *m {
-		d[i] = make([]int, len((*m)[i]))
-		copy(d[i], (*m)[i])
+func (m matrix) Rows() [][]int {
+	d := make([][]int, len(m))
+	for i := range m {
+		d[i] = make([]int, len(m[i]))
+		copy(d[i], m[i])
 	}
 	return d
 }
 
 // Cols returns a column representation of the matrix.
-func (m *matrix) Cols() [][]int {
-	t := make([][]int, len((*m)[0]))
+func (m matrix) Cols() [][]int {
+	t := make([][]int, len(m[0]))
 	for x := range t {
-		t[x] = make([]int, len(*m))
+		t[x] = make([]int, len(m))
 	}
-	for i, row := range *m {
+	for i, row := range m {
 		for j, val := range row {
 			t[j][i] = val
 		}
@@ -59,13 +59,13 @@ func (m *matrix) Cols() [][]int {
 }
 
 // Set sets the value of an element in the matrix.
-func (m *matrix) Set(row, col, val int) bool {
-	if row < 0 || row >= len(*m) {
+func (m matrix) Set(row, col, val int) bool {
+	if row < 0 || row >= len(m) {
 		return false
 	}
-	if col < 0 || col >= len((*m)[0]) {
+	if col < 0 || col >= len(m[0]) {
 		return false
 	}
-	(*m)[row][col] = val
+	m[row][col] = val
 	return true
 }
