@@ -3,12 +3,14 @@ package erratum
 // Use uses an opener to open a resource then calls the resource's
 // Frob method with the provided input.
 func Use(o ResourceOpener, input string) (err error) {
-	res, err := o()
-	if err != nil {
-		if _, ok := err.(TransientError); ok {
-			return Use(o, input)
+	var res Resource
+	for {
+		if res, err = o(); err == nil {
+			break
 		}
-		return err
+		if _, ok := err.(TransientError); !ok {
+			return err
+		}
 	}
 	defer func() {
 		if r := recover(); r != nil {
